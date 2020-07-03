@@ -2,7 +2,6 @@
 # COV-IRT Modeling WG
 # ETL for USA FACTS county-level data used in C Conley's analysis
 suppressPackageStartupMessages(library(getopt))
-suppressPackageStartupMessages(library(ggplot2))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(tidyr))
 suppressPackageStartupMessages(library(lubridate))
