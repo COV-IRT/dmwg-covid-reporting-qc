@@ -28,3 +28,8 @@ Rscript usafacts.county.etl.R \
 --out_weekly_deaths /path/to/outputs.weekly.deaths.csv \
 --out_weekly_cases /path/to/outputs.weekly.cases.csv
 ```
+
+Data Locations:
+
+* `data/covid_cases_usafacts.weekly.csv.gz` - Formatted weekly confirmed cases
+* `data/covid_deaths_usafacts.weekly.csv.gz` - Formatted weekly confirmed deaths
