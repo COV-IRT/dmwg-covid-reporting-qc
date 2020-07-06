@@ -20,13 +20,27 @@ uf.extract <- function() {
 
 # Simple transform
 uf.transform <- function(df, pop.df) {
-  df %>%
+  fmt.df <- df %>%
+    filter(countyFIPS > 1) %>%
     pivot_longer(c(-countyFIPS, -`County Name`, -State, -stateFIPS), names_to="date", values_to="counts") %>%
     mutate(date=mdy(date)) %>%
-    mutate(week_num=week(date), month=month(date)) %>%
-    group_by(countyFIPS, `County Name`, State, stateFIPS, month, week_num) %>%
-    summarise(counts=sum(counts)) %>%
+    mutate(week_num=epiweek(date)) %>%
+    group_by(countyFIPS, `County Name`, State, stateFIPS) %>%
+    mutate(lcounts=lag(counts, order_by=date)) %>%
+    mutate(lcounts=ifelse(is.na(lcounts), 0, lcounts)) %>%
+    mutate(diffcounts=counts-lcounts) %>%
+    ungroup() %>%
+    group_by(countyFIPS, `County Name`, State, stateFIPS, week_num) %>%
+    summarise(counts=sum(lcounts, na.rm=TRUE)) %>%
     left_join(pop.df)
+  
+  by.state <- fmt.df %>%
+    group_by(State, stateFIPS, week_num) %>%
+    summarize(counts=sum(counts), population=sum(population)) %>%
+    mutate(`County Name`="state_level", countyFIPS=-1)
+  
+  rbind(fmt.df, by.state) %>%
+    arrange(stateFIPS, State, countyFIPS, week_num)
 }
 
 # Simple load
