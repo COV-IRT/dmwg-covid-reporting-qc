@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 DATADIR="./data"
-UF_WEEKLY_DEATHS="covid_deaths_usafacts.weekly.epi.csv"
-UF_WEEKLY_CASES="covid_cases_usafacts.weekly.epi.csv"
+UF_WEEKLY_DEATHS="covid_deaths_usafacts.weekly.csv"
+UF_WEEKLY_CASES="covid_cases_usafacts.weekly.csv"
 
 function print_usage() {
     echo "Usage: run_etl.sh <command>"

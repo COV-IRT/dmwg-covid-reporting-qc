@@ -1,6 +1,7 @@
 # Kyle Hernandez
 # COV-IRT Modeling WG
 # ETL for USA FACTS county-level data used in C Conley's analysis
+# Note: we use epiweek
 suppressPackageStartupMessages(library(getopt))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(tidyr))
@@ -25,13 +26,14 @@ uf.transform <- function(df, pop.df) {
     pivot_longer(c(-countyFIPS, -`County Name`, -State, -stateFIPS), names_to="date", values_to="counts") %>%
     mutate(date=mdy(date)) %>%
     mutate(week_num=epiweek(date)) %>%
+    arrange(countyFIPS, `County Name`, State, stateFIPS, date) %>%
     group_by(countyFIPS, `County Name`, State, stateFIPS) %>%
     mutate(lcounts=lag(counts, order_by=date)) %>%
     mutate(lcounts=ifelse(is.na(lcounts), 0, lcounts)) %>%
     mutate(diffcounts=counts-lcounts) %>%
     ungroup() %>%
     group_by(countyFIPS, `County Name`, State, stateFIPS, week_num) %>%
-    summarise(counts=sum(lcounts, na.rm=TRUE)) %>%
+    summarise(counts=sum(diffcounts, na.rm=TRUE)) %>%
     left_join(pop.df)
   
   by.state <- fmt.df %>%
