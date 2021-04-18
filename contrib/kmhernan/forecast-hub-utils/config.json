@@ -1,0 +1,17 @@
+{
+  "forecast_hub_repo": "/Users/kylehernandez/Projects/Other/COV-IRT/research/sylvain-eloise-covid/data/cassie-sets/forecast-hub/covid19-forecast-hub",
+  "selected_models": [
+    "CMU-TimeSeries", "COVIDhub-baseline", "COVIDhub-ensemble", "Covid19Sim-Simulator",
+    "CU-select", "GT-DeepCOVID", "IHME-CurveFit", "IowaStateLW-STEM", "JHU_IDD-CovidSP",
+    "Karlen-pypm", "LANL-GrowthRate", "MOBS-GLEAM_COVID", "NotreDame-mobility",
+    "OliverWyman-Navigator", "RobertWalraven-ESG", "PSI-DRAFT", "UA-EpiCovDA",
+    "UCLA-SuEIR", "UMass-MechBayes", "UMich-RidgeTfReg", "USACE-ERDC_SEIR",
+    "UT-Mobility", "YYG-ParamSearch"
+  ],
+  "inc_death_forecasts": "./data/fc-hub.inc_death.csv.gz",
+  "inc_death_scores": "./data/fc-hub.inc_death.scores.csv.gz",
+  "cumulative_death_forecasts": "./data/fc-hub.cum_death.csv.gz",
+  "cumulative_death_scores": "./data/fc-hub.cum_death.scores.csv.gz",
+  "metrics_data": "./data/7Apr21WeeklyTimecourse.csv.gz",
+  "cross_corr_data": "./data/crosscorr.scores.excursions.all_models.7Apr21WeeklyTimecourse.csv.gz"
+}
